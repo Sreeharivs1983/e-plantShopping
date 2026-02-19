@@ -8,16 +8,18 @@ const CartItem = ({ onContinueShopping }) => {
   const dispatch = useDispatch();
 
   
-  const calculateTotalAmount = () => {
-    let total = 0;
+  
 
-    cart.forEach(item => {
-      const numericCost = parseFloat(item.cost.substring(1));
-      total += numericCost * item.quantity;
-    });
-
-    return total.toFixed(2);
+    // Calculate total cart amount dynamically from Redux state
+const calculateTotalAmount = () => {
+    return cart
+      .reduce((total, item) => {
+        const numericCost = parseFloat(item.cost.substring(1));
+        return total + numericCost * item.quantity;
+      }, 0)
+      .toFixed(2);
   };
+  
 
   const handleContinueShopping = (e) => {
     e.preventDefault();
@@ -61,11 +63,22 @@ const CartItem = ({ onContinueShopping }) => {
     return (numericCost * item.quantity).toFixed(2);
   };
 
+
+// Dynamically calculate total cart amount directly from Redux cart state
+
   return (
-    <div className="cart-container">
+    <div className="cart-container">     
       <h2 style={{ color: 'black' }}>
-        Total Cart Amount: ${calculateTotalAmount()}
-      </h2>
+  Total Cart Amount: $
+  {cart
+    .reduce((total, item) => {
+      const numericCost = parseFloat(item.cost.substring(1));
+      return total + numericCost * item.quantity;
+    }, 0)
+    .toFixed(2)}
+</h2>
+
+
 
       <div>
         {cart.map(item => (
