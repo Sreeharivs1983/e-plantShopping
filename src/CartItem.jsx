@@ -7,7 +7,7 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
-  // Calculate total amount for all products in the cart
+  
   const calculateTotalAmount = () => {
     let total = 0;
 
@@ -24,9 +24,10 @@ const CartItem = ({ onContinueShopping }) => {
     onContinueShopping(e);
   };
 
-  const handleCheckoutShopping = (e) => {
-    alert('Functionality to be added for future reference');
+  const handleCheckoutShopping = () => {
+    alert('Checkout feature coming soon! Thank you for shopping with Paradise Nursery.');
   };
+  
 
   const handleIncrement = (item) => {
     dispatch(
@@ -54,7 +55,7 @@ const CartItem = ({ onContinueShopping }) => {
     dispatch(removeItem(item.name));
   };
 
-  // Calculate total cost based on quantity for an item
+ 
   const calculateTotalCost = (item) => {
     const numericCost = parseFloat(item.cost.substring(1));
     return (numericCost * item.quantity).toFixed(2);
