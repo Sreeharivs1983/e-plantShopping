@@ -1,6 +1,6 @@
 # e-plantShopping
 
-## 🌿 Paradise Nursery Shopping Application
+## Paradise Nursery Shopping Application
 
 e-plantShopping is a React + Redux based shopping cart application for an online plant store called **Paradise Nursery**.
 
@@ -15,14 +15,14 @@ This project demonstrates:
 
 ---
 
-## 🛒 Features
+##  Features
 
-### 🏠 Landing Page
+###  Landing Page
 - Welcome message for Paradise Nursery
 - Background image
 - “Get Started” button to enter the shop
 
-### 🌱 Product Listing Page
+###  Product Listing Page
 - Multiple plant categories:
   - Air Purifying Plants
   - Aromatic Fragrant Plants
@@ -40,7 +40,7 @@ This project demonstrates:
   - Gets disabled after adding
   - Changes label to "Added"
 
-### 🛍 Shopping Cart Page
+### Shopping Cart Page
 - Displays all selected plants
 - Shows:
   - Plant image
@@ -60,7 +60,7 @@ This project demonstrates:
 
 ---
 
-## 🧠 Redux Implementation
+##  Redux Implementation
 
 Redux Toolkit is used to manage global cart state.
 
