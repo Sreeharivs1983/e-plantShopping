@@ -7,8 +7,11 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
-  // Calculate total cart amount dynamically
-  const calculateTotalAmount = () => {
+  
+  
+
+    // Calculate total cart amount dynamically from Redux state
+const calculateTotalAmount = () => {
     return cart
       .reduce((total, item) => {
         const numericCost = parseFloat(item.cost.substring(1));
@@ -16,6 +19,7 @@ const CartItem = ({ onContinueShopping }) => {
       }, 0)
       .toFixed(2);
   };
+  
 
   const handleContinueShopping = (e) => {
     e.preventDefault();
@@ -25,6 +29,7 @@ const CartItem = ({ onContinueShopping }) => {
   const handleCheckoutShopping = () => {
     alert('Checkout feature coming soon! Thank you for shopping with Paradise Nursery.');
   };
+  
 
   const handleIncrement = (item) => {
     dispatch(
@@ -52,103 +57,97 @@ const CartItem = ({ onContinueShopping }) => {
     dispatch(removeItem(item.name));
   };
 
-  // Calculate subtotal for each item
+ 
   const calculateTotalCost = (item) => {
     const numericCost = parseFloat(item.cost.substring(1));
     return (numericCost * item.quantity).toFixed(2);
   };
 
+
+// Dynamically calculate total cart amount directly from Redux cart state
+
   return (
-    <div className="cart-container">
+    <div className="cart-container">     
+      <h2 style={{ color: 'black' }}>
+  Total Cart Amount: $
+  {cart
+    .reduce((total, item) => {
+      const numericCost = parseFloat(item.cost.substring(1));
+      return total + numericCost * item.quantity;
+    }, 0)
+    .toFixed(2)}
+</h2>
 
-      <h2 style={{ color: 'black' }}>Shopping Cart</h2>
 
-      {/* Empty Cart Handling */}
-      {cart.length === 0 ? (
-        <div style={{ marginTop: '20px', fontSize: '18px', color: 'black' }}>
-          Your cart is empty. Start adding some beautiful plants 🌿
-        </div>
-      ) : (
-        <>
-          <div>
-            {cart.map(item => (
-              <div className="cart-item" key={item.name}>
-                <img
-                  className="cart-item-image"
-                  src={item.image}
-                  alt={item.name}
-                />
 
-                <div className="cart-item-details">
-                  <div className="cart-item-name">{item.name}</div>
-                  <div className="cart-item-cost">{item.cost}</div>
+      <div>
+        {cart.map(item => (
+          <div className="cart-item" key={item.name}>
+            <img
+              className="cart-item-image"
+              src={item.image}
+              alt={item.name}
+            />
 
-                  <div className="cart-item-quantity">
-                    <button
-                      className="cart-item-button cart-item-button-dec"
-                      onClick={() => handleDecrement(item)}
-                    >
-                      -
-                    </button>
+            <div className="cart-item-details">
+              <div className="cart-item-name">{item.name}</div>
+              <div className="cart-item-cost">{item.cost}</div>
 
-                    <span className="cart-item-quantity-value">
-                      {item.quantity}
-                    </span>
+              <div className="cart-item-quantity">
+                <button
+                  className="cart-item-button cart-item-button-dec"
+                  onClick={() => handleDecrement(item)}
+                >
+                  -
+                </button>
 
-                    <button
-                      className="cart-item-button cart-item-button-inc"
-                      onClick={() => handleIncrement(item)}
-                    >
-                      +
-                    </button>
-                  </div>
+                <span className="cart-item-quantity-value">
+                  {item.quantity}
+                </span>
 
-                  <div className="cart-item-total">
-                    Subtotal: ${calculateTotalCost(item)}
-                  </div>
-
-                  <button
-                    className="cart-item-delete"
-                    onClick={() => handleRemove(item)}
-                  >
-                    Delete
-                  </button>
-                </div>
+                <button
+                  className="cart-item-button cart-item-button-inc"
+                  onClick={() => handleIncrement(item)}
+                >
+                  +
+                </button>
               </div>
-            ))}
-          </div>
 
-          {/* Dedicated Total Section */}
-          <div
-            style={{
-              marginTop: '30px',
-              padding: '20px',
-              borderTop: '2px solid #ccc',
-              fontSize: '20px',
-              fontWeight: 'bold',
-              color: 'black'
-            }}
-          >
-            Grand Total: ${calculateTotalAmount()}
-          </div>
+              <div className="cart-item-total">
+                Total: ${calculateTotalCost(item)}
+              </div>
 
-          <div className="continue_shopping_btn">
-            <button
-              className="get-started-button"
-              onClick={(e) => handleContinueShopping(e)}
-            >
-              Continue Shopping
-            </button>
-            <br />
-            <button
-              className="get-started-button1"
-              onClick={handleCheckoutShopping}
-            >
-              Checkout
-            </button>
+              <button
+                className="cart-item-delete"
+                onClick={() => handleRemove(item)}
+              >
+                Delete
+              </button>
+            </div>
           </div>
-        </>
-      )}
+        ))}
+      </div>
+
+      <div
+        style={{ marginTop: '20px', color: 'black' }}
+        className="total_cart_amount"
+      ></div>
+
+      <div className="continue_shopping_btn">
+        <button
+          className="get-started-button"
+          onClick={(e) => handleContinueShopping(e)}
+        >
+          Continue Shopping
+        </button>
+        <br />
+        <button
+          className="get-started-button1"
+          onClick={handleCheckoutShopping}
+        >
+          Checkout
+        </button>
+      </div>
     </div>
   );
 };
